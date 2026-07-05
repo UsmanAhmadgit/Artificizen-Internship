@@ -1,0 +1,30 @@
+{
+    "books": {
+        "111": {
+            "title": "Clean Code",
+            "author": "Robert C. Martin",
+            "isbn": "111",
+            "copies_available": 3
+        },
+        "222": {
+            "title": "Deep Learning",
+            "author": "Ian Goodfellow",
+            "isbn": "222",
+            "copies_available": 0
+        }
+    },
+    "members": {
+        "M-01": {
+            "name": "Usman Ahmad",
+            "member_id": "M-01",
+            "borrowed_books": []
+        },
+        "M-02": {
+            "name": "Ahmad",
+            "member_id": "M-02",
+            "borrowed_books": [
+                "222"
+            ]
+        }
+    }
+}
