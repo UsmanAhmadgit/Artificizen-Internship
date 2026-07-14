@@ -25,17 +25,31 @@ A production-ready, modular REST API built with FastAPI and PostgreSQL. This pro
 ## Project Structure
 
 Capstone - Task Management/
+
 ├── core/
+
 │   ├── security.py       # JWT logic, password hashing, and auth dependencies
+
 │   └── exceptions.py     # Global JSON exception handler
+
 ├── db/
+
 │   ├── database.py       # PostgreSQL connection and session management
+
 │   ├── models.py         # SQLAlchemy ORM models (User, Task)
+
 │   └── schemas.py        # Pydantic schemas for request/response validation
+
 ├── routers/
+
 │   ├── auth.py           # Registration and login endpoints
+
 │   └── tasks.py          # Task CRUD endpoints
+
 ├── tests/
+
 │   └── test_api.py       # Automated integration tests
+
 ├── .env                  # Environment variables (Database URL, Secret Key)
+
 └── main.py               # Application factory and router registration
