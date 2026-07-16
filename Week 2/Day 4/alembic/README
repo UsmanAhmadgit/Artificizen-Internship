@@ -1,1 +1,36 @@
-Generic single-database configuration.
+# Alembic Migration Guide
+
+This directory contains Alembic migration configuration for a single-database setup.
+
+## Purpose
+
+- Track schema changes over time
+- Generate versioned migration files
+- Apply or roll back database changes safely
+
+## Folder Contents
+
+```text
+alembic/
+|-- env.py
+|-- script.py.mako
+|-- versions/
+`-- README
+```
+
+## Common Commands
+
+Run these commands from the project root (the directory containing `alembic.ini`):
+
+```bash
+alembic revision --autogenerate -m "create users table"
+alembic upgrade head
+alembic downgrade -1
+alembic current
+alembic history
+```
+
+## Notes
+
+- Ensure your database URL is configured correctly before running migrations.
+- Review generated migration scripts before applying them in production.

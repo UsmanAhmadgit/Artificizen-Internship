@@ -1,55 +1,130 @@
 # Task Management REST API
 
-A production-ready, modular REST API built with FastAPI and PostgreSQL. This project serves as an end-of-week capstone, demonstrating a secure, scalable backend architecture with strict user-data isolation and automated testing.
+A modular FastAPI + PostgreSQL backend built as a capstone project. It includes secure authentication, task CRUD operations, per-user data isolation, global exception handling, and API tests.
 
-## Core Features
+## Table of Contents
 
-**Authentication & Security:** Secure user registration and login using bcrypt password hashing and JWT (JSON Web Token) authentication.
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Running the App](#running-the-app)
+- [API Endpoints](#api-endpoints)
+- [Run Tests](#run-tests)
 
-**Task Management (CRUD):** Complete Create, Read, Update, and Delete operations for tasks, strictly enforcing that users can only view and modify their own tasks.
+## Features
 
-**Domain-Driven Architecture:** Codebase organized by domains (security, database, routers) for maximum scalability and maintainability.
-
-**Global Error Handling:** Custom exception handlers that standardize all HTTP errors into a predictable JSON format.
-
-**Automated Testing:** Comprehensive test suite utilizing `pytest` and FastAPI's `TestClient` to verify core flows and unauthorized access barriers.
+- User registration and login
+- JWT-based authentication
+- Password hashing with bcrypt
+- Full task CRUD (create, list, get, update, delete)
+- Strict ownership checks so users only access their own tasks
+- Optional task filtering by status
+- Centralized JSON error responses
+- Integration tests with FastAPI TestClient
 
 ## Tech Stack
 
-**Framework:** FastAPI
-**Database:** PostgreSQL & SQLAlchemy (ORM)
-**Authentication:** Passlib (Bcrypt) & Python-JOSE (JWT)
-**Validation:** Pydantic
-**Testing:** Pytest & HTTPX
+- FastAPI
+- SQLAlchemy
+- PostgreSQL
+- Pydantic
+- Passlib (bcrypt)
+- Python-JOSE (JWT)
+- Pytest
 
 ## Project Structure
 
+```text
 Capstone - Task Management/
+|-- core/
+|   |-- exceptions.py
+|   `-- security.py
+|-- db/
+|   |-- database.py
+|   |-- models.py
+|   `-- schemas.py
+|-- routers/
+|   |-- auth.py
+|   `-- tasks.py
+|-- tests/
+|   `-- test_api.py
+|-- .env
+|-- main.py
+`-- README.md
+```
 
-├── core/
+## Getting Started
 
-│   ├── security.py       # JWT logic, password hashing, and auth dependencies
+### 1) Create and activate virtual environment
 
-│   └── exceptions.py     # Global JSON exception handler
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
 
-├── db/
+### 2) Install dependencies
 
-│   ├── database.py       # PostgreSQL connection and session management
+```bash
+pip install fastapi uvicorn sqlalchemy psycopg2-binary pydantic python-jose passlib[bcrypt] python-multipart pytest httpx
+```
 
-│   ├── models.py         # SQLAlchemy ORM models (User, Task)
+## Environment Variables
 
-│   └── schemas.py        # Pydantic schemas for request/response validation
+Create a `.env` file in the project root and define:
 
-├── routers/
+| Variable | Description | Example |
+| --- | --- | --- |
+| `DATABASE_URL` | PostgreSQL connection URL | `postgresql://postgres:password@localhost:5432/taskdb` |
+| `SECRET_KEY` | JWT signing key | `super-secret-key` |
 
-│   ├── auth.py           # Registration and login endpoints
 
-│   └── tasks.py          # Task CRUD endpoints
+## Running the App
 
-├── tests/
+```bash
+uvicorn main:app --reload
+```
 
-│   └── test_api.py       # Automated integration tests
+Open docs at:
 
-├── .env                  # Environment variables (Database URL, Secret Key)
+- `http://127.0.0.1:8000/docs`
+- `http://127.0.0.1:8000/redoc`
 
-└── main.py               # Application factory and router registration
+## API Endpoints
+
+### Authentication
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| POST | `/auth/register` | Register a new user |
+| POST | `/auth/token` | Login and get access token |
+
+### Tasks (JWT required)
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| POST | `/tasks/` | Create task |
+| GET | `/tasks/` | List current user's tasks |
+| GET | `/tasks/{task_id}` | Get single task |
+| PUT | `/tasks/{task_id}` | Update task |
+| DELETE | `/tasks/{task_id}` | Delete task |
+
+Filter support:
+
+- `GET /tasks/?status=pending`
+- `GET /tasks/?status=completed`
+
+## Run Tests
+
+```bash
+pytest -q
+```
+
+Current tests verify:
+
+- user registration
+- login and token generation
+- unauthorized access protection
+- task creation
+- task retrieval
