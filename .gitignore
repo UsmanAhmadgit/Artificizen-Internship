@@ -9,3 +9,9 @@ __pycache__/
 
 # Secrets 
 .env
+
+# Editor directories and files
+.vscode/
+
+# Vector Database local storage
+chroma_db/
