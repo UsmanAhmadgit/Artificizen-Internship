@@ -1,4 +1,4 @@
-# Day 5: Productionizing and Evaluating RAG Pipelines
+# Day 5: RAG with FastAPI + Multi-Turn Chat + Evaluation
 
 ## Overview
 
