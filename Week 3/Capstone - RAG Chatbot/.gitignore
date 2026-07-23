@@ -1,0 +1,17 @@
+# Environments
+venv/
+env/
+
+# Secrets
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Testing
+.pytest_cache/
+
+# Local Vector Database/Models 
+*.db
