@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import auth, rooms
+from routers import auth, rooms, upload
 
 app = FastAPI(
     title="AI Legal Case Workspace API",
@@ -8,6 +8,7 @@ app = FastAPI(
 
 app.include_router(auth.router)
 app.include_router(rooms.router)
+app.include_router(upload.router)
 
 @app.get("/")
 def read_root():

@@ -10,10 +10,8 @@ venv/
 env/
 .venv/
 
-
 # Python Cache 
 __pycache__/
-
 
 # SQLite Databases
 *.db
@@ -22,3 +20,6 @@ __pycache__/
 
 # IDEs & OS Files
 .vscode/
+
+# Ignore local AI models
+models/

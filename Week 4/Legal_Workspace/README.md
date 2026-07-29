@@ -21,7 +21,11 @@ The **AI Legal Case Workspace** solves this by bringing all case-related documen
 * **Authentication:** Secure user registration and login using JWT and modern `bcrypt` password hashing.
 * **Case Management:** Protected CRUD operations for user-scoped Chat Rooms (ensuring users only have access to their own case files).
 * **Database:** SQLite database seamlessly integrated with Alembic for version-controlled schema migrations.
-
+* **Multi-Format Ingestion Pipeline:** Centralized dispatcher dynamically routing 16+ file types (PDF, DOCX, PPTX, CSV, TXT, Images, Audio, Video) to specialized extraction modules.
+* **Intelligent Text Chunking:** Context-aware splitting algorithm featuring an 800-character limit and 1-element overlap (carrying over previous paragraphs or table rows) to prevent semantic loss and model truncation.
+* **Local Deep-Learning OCR:** Integrated PaddleOCR and OpenCV for privacy-first, offline text extraction from standalone images (PNG/JPG) as well as pictures embedded deep within PDFs, DOCXs, and PPTXs.
+* **Audio & Video Transcription:** Native Groq Whisper API integration to extract text from media files, injecting `[MM:SS]` timestamps directly into the text chunks for precise retrieval.
+* **Structured Data Preservation:** Advanced parsing that respects original document architecture, cleanly breaking down DOCX/PPTX tables row-by-row while preserving section headings and slide titles across chunks.
 ---
 
 ## Local Setup Instructions

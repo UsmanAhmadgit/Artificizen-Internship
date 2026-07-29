@@ -8,3 +8,15 @@ pydantic
 email-validator
 python-dotenv
 python-multipart
+groq
+sentence-transformers
+qdrant-client
+pymupdf4llm
+python-docx
+python-pptx
+moviepy
+pandas
+streamlit
+paddleocr
+paddlepaddle
+opencv-python-headless
