@@ -51,7 +51,9 @@ def extract_docx_chunks(file_bytes: bytes) -> list[str]:
             for shape in doc.inline_shapes:
                 try:
                     if shape.type == docx.enum.shape.WD_INLINE_SHAPE.PICTURE:
-                        image_bytes = getattr(shape.image, 'blob', None) or getattr(shape, 'blob', None)
+                        rId = shape._inline.graphic.graphicData.pic.blipFill.blip.embed
+                        image_bytes = doc.part.related_parts[rId].blob
+                        
                         if image_bytes:
                             img_text = extract_text_from_image(image_bytes)
                             if img_text.strip():

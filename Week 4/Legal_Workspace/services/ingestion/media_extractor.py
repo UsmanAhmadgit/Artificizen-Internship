@@ -1,11 +1,13 @@
 import os
 import tempfile
 from groq import Groq
+from dotenv import load_dotenv
+from moviepy import VideoFileClip
 
+load_dotenv()
 client = Groq()
 
 def extract_media_chunks(file_bytes: bytes, filename: str = "media.mp3") -> list[str]:
-
     if not file_bytes or len(file_bytes) == 0:
         return []
 
@@ -14,18 +16,36 @@ def extract_media_chunks(file_bytes: bytes, filename: str = "media.mp3") -> list
         ext = ".mp3"
 
     tmp_path = None
+    audio_tmp_path = None 
+    
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as tmp_file:
             tmp_file.write(file_bytes)
             tmp_path = tmp_file.name
 
-        with open(tmp_path, "rb") as file_obj:
+        video_extensions = ['.mp4', '.avi', '.mov', '.mkv', '.webm']
+        target_upload_path = tmp_path
+        
+        if ext in video_extensions:
+            video_clip = VideoFileClip(tmp_path)
+            
+            audio_tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+            audio_tmp_path = audio_tmp_file.name
+            audio_tmp_file.close() 
+            
+            video_clip.audio.write_audiofile(audio_tmp_path, logger=None)
+            video_clip.close()
+            
+            target_upload_path = audio_tmp_path
+
+        with open(target_upload_path, "rb") as file_obj:
             transcription = client.audio.transcriptions.create(
-                file=(os.path.basename(tmp_path), file_obj.read()),
+                file=(os.path.basename(target_upload_path), file_obj.read()),
                 model="whisper-large-v3",
                 response_format="verbose_json",
                 temperature=0.0
             )
+
 
         segments = getattr(transcription, "segments", [])
         elements = []

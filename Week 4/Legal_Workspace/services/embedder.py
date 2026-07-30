@@ -1,5 +1,6 @@
 import uuid
 from qdrant_client import QdrantClient
+from qdrant_client.http import models
 from qdrant_client.http.models import Distance, VectorParams, PointStruct
 from sentence_transformers import SentenceTransformer
 
@@ -46,3 +47,21 @@ def embed_and_store(chunks: list[str], metadata: dict) -> int:
     )
     
     return len(points)
+
+def delete_file_vectors(file_id: int):
+    try:
+        qdrant_client.delete(
+            collection_name=COLLECTION_NAME,
+            points_selector=models.FilterSelector(
+                filter=models.Filter(
+                    must=[
+                        models.FieldCondition(
+                            key="file_id",
+                            match=models.MatchValue(value=file_id)
+                        )
+                    ]
+                )
+            )
+        )
+    except Exception as e:
+        print(f"Error deleting Qdrant vectors for file_id {file_id}: {e}")

@@ -26,11 +26,12 @@ def extract_pptx_chunks(file_bytes: bytes) -> list[str]:
                         p_text = paragraph.text.strip()
                         if p_text:
                             content_parts.append(p_text)
-                            
+
                 elif shape.shape_type == MSO_SHAPE_TYPE.PICTURE:
                     img_text = extract_text_from_image(shape.image.blob)
                     if img_text:
-                        content_parts.append(f"[Embedded Image Content]: {img_text.replace('\n', ' ')}")            
+                        clean_img_text = img_text.replace('\n', ' ')
+                        content_parts.append(f"[Embedded Image Content]: {clean_img_text}")          
 
                 elif shape.has_table:
                     table = shape.table

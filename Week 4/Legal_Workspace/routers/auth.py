@@ -39,7 +39,7 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
         
     return {"id": db_user.id, "username": db_user.username, "email": db_user.email}
 
-@router.post("/login")
+
 @router.post("/login")
 def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == form_data.username).first()
