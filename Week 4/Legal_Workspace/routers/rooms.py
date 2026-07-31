@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
+from services.embedder import delete_file_vectors
+import os
 
 from db.database import get_db
 from db.models import ChatRoom, User
@@ -65,6 +67,14 @@ def delete_room(room_id: int, db: Session = Depends(get_db), current_user: User 
     if not db_room:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Room not found or unauthorized")
         
+    for db_file in db_room.files:
+        
+        if os.path.exists(db_file.file_path):
+            os.remove(db_file.file_path)
+
+        delete_file_vectors(db_file.id)
+            
     db.delete(db_room)
     db.commit()
+    
     return None

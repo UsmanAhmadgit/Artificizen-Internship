@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from pydantic import BaseModel, EmailStr, Field
 from datetime import timedelta
+from services.embedder import delete_file_vectors
 import os
 
 from db.database import get_db
@@ -55,10 +56,22 @@ def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = D
         data={"sub": str(user.id)}, expires_delta=access_token_expires
     )
     
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "username": user.username}
 
 @router.delete("/account", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user_account(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    db.delete(current_user)
-    db.commit()
+    user = db.query(User).filter(User.id == current_user.id).first()
+    
+    if user:
+        for room in user.rooms:
+            for db_file in room.files:
+                
+                if os.path.exists(db_file.file_path):
+                    os.remove(db_file.file_path)
+
+                delete_file_vectors(db_file.id)
+
+        db.delete(user)
+        db.commit()
+        
     return None

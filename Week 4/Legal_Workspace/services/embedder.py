@@ -3,8 +3,10 @@ from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from qdrant_client.http.models import Distance, VectorParams, PointStruct
 from sentence_transformers import SentenceTransformer
+import os
 
-qdrant_client = QdrantClient(":memory:") 
+os.makedirs("qdrant_storage", exist_ok=True)
+qdrant_client = QdrantClient(path="qdrant_storage")
 COLLECTION_NAME = "legal_documents"
 
 embedder = SentenceTransformer("all-MiniLM-L6-v2")

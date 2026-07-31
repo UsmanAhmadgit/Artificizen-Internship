@@ -13,10 +13,11 @@ env/
 # Python Cache 
 __pycache__/
 
-# SQLite Databases
+# Databases
 *.db
 *.sqlite
 *.sqlite3
+qdrant_storage/
 
 # IDEs & OS Files
 .vscode/
