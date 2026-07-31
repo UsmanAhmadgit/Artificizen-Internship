@@ -1,0 +1,16 @@
+﻿EmployeeID,Name,Role,Department,Office,YearsExperience,JoiningDate,Status,MonthlySalary (PKR),CurrentCase,Manager
+101,Ali Raza,Senior Lawyer,Litigation,Lahore,12,15-Jan-14,Active,420000,Ahmed Khan Contract Dispute,Sara Mahmood
+102,Sana Ahmed,Junior Lawyer,Litigation,Islamabad,3,12-Jun-23,Active,145000,Riverside Property Case,Ali Raza
+103,Hamza Khan,Paralegal,Documentation,Lahore,5,8-Mar-21,Active,110000,Ahmed Khan Contract Dispute,Ali Raza
+104,Ayesha Noor,Legal Assistant,Administration,Karachi,2,1-Feb-24,On Leave,90000,None,Hina Tariq
+105,Umar Malik,Research Analyst,Research,Lahore,6,22-Aug-20,Active,175000,Environmental Appeal,Sara Mahmood
+106,Fatima Siddiqui,Compliance Officer,Compliance,Islamabad,8,10-Oct-18,Active,230000,Internal Audit,Imran Qureshi
+107,Bilal Hussain,Case Coordinator,Operations,Lahore,4,18-May-22,Active,125000,Metro Plaza Arbitration,Sara Mahmood
+108,Maria Siddique,Project Engineer,Technical,Lahore,9,9-Apr-17,Active,260000,Riverside Commercial Complex,Imran Qureshi
+109,Hassan Ali,Forensic Consultant,Forensics,Karachi,11,5-Dec-15,Contract,310000,Fingerprint Investigation,Sara Mahmood
+110,Zain Malik,Financial Analyst,Finance,Islamabad,7,17-Jul-19,Active,205000,Construction Budget Review,Imran Qureshi
+111,Noor Fatima,Procurement Officer,Procurement,Lahore,5,28-Jan-21,Suspended,165000,Vendor Compliance Review,Sara Mahmood
+112,Ahmed Raza,IT Administrator,Information Technology,Lahore,10,14-Nov-16,Active,245000,Legal Document System,Imran Qureshi
+113,Hina Tariq,Office Manager,Administration,Karachi,13,3-May-13,Active,285000,Office Operations,None
+114,Imran Qureshi,Director of Operations,Executive,Islamabad,15,1-Jan-11,Active,550000,Corporate Oversight,None
+115,Sara Mahmood,Head of Legal Services,Executive,Lahore,16,20-Feb-10,Active,620000,Firm Management,None
