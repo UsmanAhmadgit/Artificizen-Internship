@@ -3,7 +3,7 @@ import requests
 import time
 from utils.file_limits import get_max_file_size
 
-API_BASE_URL = ""
+API_BASE_URL = "http://127.0.0.1:8000"
 
 if "access_token" not in st.session_state:
     st.session_state["access_token"] = None
